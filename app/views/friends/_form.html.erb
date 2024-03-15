@@ -12,24 +12,62 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :name %><br>
-    <%= form.text_field :name %>
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :friend_name %>
   </div>
 
   <div class="field">
-    <%= form.label :birthday %><br>
-    <%= form.date_field :birthday %>
+    <%= form.label :birthday %>
+    <%= form.date_field :birthday, id: :friend_birthday %>
   </div>
 
   <h3>Gift Ideas:</h3>
   <div id="gifts">
     <%= form.fields_for :gifts do |gift_form| %>
-      <%= render 'gifts/gift_fields', f: gift_form %>
+      <div class="nested-fields">
+        <div class="field">
+          <%= gift_form.label :name %>
+          <%= gift_form.text_field :name %>
+        </div>
+
+        <div class="field">
+          <%= gift_form.label :price %>
+          <%= gift_form.number_field :price %>
+        </div>
+
+        <div class="field">
+          <%= gift_form.label :link %>
+          <%= gift_form.url_field :link %>
+        </div>
+
+        <%= link_to 'Remove this gift', '#', class: 'remove-gift' %>
+      </div>
     <% end %>
   </div>
-  <%= link_to 'Add Gift', '#', id: 'add-gift-link', class: 'btn btn-default' %>
+  <%= link_to 'Add Gift', '#', id: 'add-gift-link', class: 'btn btn-primary' %>
 
   <div class="actions">
     <%= form.submit %>
   </div>
 <% end %>
+
+<script type="text/template" id="gift-fields-template">
+  <div class="nested-fields">
+    <div class="field">
+      <%= label_tag 'friend[gifts_attributes][NEW_RECORD][name]', 'Gift name' %>
+      <%= text_field_tag 'friend[gifts_attributes][NEW_RECORD][name]', '', class: 'form-control' %>
+    </div>
+
+    <div class="field">
+      <%= label_tag 'friend[gifts_attributes][NEW_RECORD][price]', 'Price' %>
+      <%= text_field_tag 'friend[gifts_attributes][NEW_RECORD][price]', '', class: 'form-control' %>
+    </div>
+
+    <div class="field">
+      <%= label_tag 'friend[gifts_attributes][NEW_RECORD][link]', 'Link' %>
+      <%= text_field_tag 'friend[gifts_attributes][NEW_RECORD][link]', '', class: 'form-control' %>
+    </div>
+
+    <a href="#" class="remove-gift">Remove this gift</a>
+  </div>
+</script>
