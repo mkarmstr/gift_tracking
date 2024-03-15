@@ -2,7 +2,6 @@
   <% if friend.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(friend.errors.count, "error") %> prohibited this friend from being saved:</h2>
-
       <ul>
         <% friend.errors.full_messages.each do |message| %>
           <li><%= message %></li>
@@ -24,24 +23,7 @@
   <h3>Gift Ideas:</h3>
   <div id="gifts">
     <%= form.fields_for :gifts do |gift_form| %>
-      <div class="nested-fields">
-        <div class="field">
-          <%= gift_form.label :name %>
-          <%= gift_form.text_field :name %>
-        </div>
-
-        <div class="field">
-          <%= gift_form.label :price %>
-          <%= gift_form.number_field :price %>
-        </div>
-
-        <div class="field">
-          <%= gift_form.label :link %>
-          <%= gift_form.url_field :link %>
-        </div>
-
-        <%= link_to 'Remove this gift', '#', class: 'remove-gift' %>
-      </div>
+      <%= render 'gifts/gift_fields', f: gift_form %>
     <% end %>
   </div>
   <%= link_to 'Add Gift', '#', id: 'add-gift-link', class: 'btn btn-primary' %>
@@ -51,23 +33,20 @@
   </div>
 <% end %>
 
-<script type="text/template" id="gift-fields-template">
+<template id="gift-fields-template">
   <div class="nested-fields">
     <div class="field">
-      <%= label_tag 'friend[gifts_attributes][NEW_RECORD][name]', 'Gift name' %>
+      <%= form.label :gifts_attributes_NEW_RECORD_name, 'Gift name' %>
       <%= text_field_tag 'friend[gifts_attributes][NEW_RECORD][name]', '', class: 'form-control' %>
     </div>
-
     <div class="field">
-      <%= label_tag 'friend[gifts_attributes][NEW_RECORD][price]', 'Price' %>
+      <%= form.label :gifts_attributes_NEW_RECORD_price, 'Price' %>
       <%= text_field_tag 'friend[gifts_attributes][NEW_RECORD][price]', '', class: 'form-control' %>
     </div>
-
     <div class="field">
-      <%= label_tag 'friend[gifts_attributes][NEW_RECORD][link]', 'Link' %>
+      <%= form.label :gifts_attributes_NEW_RECORD_link, 'Link' %>
       <%= text_field_tag 'friend[gifts_attributes][NEW_RECORD][link]', '', class: 'form-control' %>
     </div>
-
-    <a href="#" class="remove-gift">Remove this gift</a>
+    <%= link_to 'Remove this gift', '#', class: 'remove-gift' %>
   </div>
-</script>
+</template>
