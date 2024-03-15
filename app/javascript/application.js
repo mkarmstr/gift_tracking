@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // click event listener to "Add Gift" link
     addGiftLink.addEventListener('click', handleAddGiftLinkClick);
 
+    // trigger click event to add new gift form on page load
     addGiftLink.click();
 
     // define click event handler for "Remove Gift" 
@@ -27,6 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
+    // click event listener to "Remove Gift" button
     giftsContainer.addEventListener('click', handleRemoveGiftButtonClick);
   }
 });
