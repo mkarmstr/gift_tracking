@@ -40,11 +40,11 @@
               <%= gift_form.label :link, class: "block font-medium text-sm text-[#374151]" %>
               <%= gift_form.text_field :link, class: "form-input w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300" %>
             </div>
-            <%# <%= link_to 'Remove this gift', '#', class: 'remove-gift text-red-500 hover:text-red-600 flex justify-end' %>
+            <%= link_to 'Remove this gift', '#', class: 'remove-gift text-red-500 hover:text-red-600 flex justify-end' %>
           </div>
         <% end %>
       </div>
-      <%= link_to 'Add Another Gift', '#', id: 'add-gift-link', class: "mt-8 flex justify-center text-primary font-bold text-green-600 hover:text-secondary" %>
+      <%= link_to 'Add a Gift', '#', id: 'add-gift-link', class: "mt-8 flex justify-center text-primary font-bold text-green-600 hover:text-secondary" %>
       <div class="flex justify-between pt-6">
         <%# <div class="actions mt-6"> %>
         <%= link_to 'Back to Friends List', friends_path%>
@@ -69,9 +69,7 @@
           <%= text_field_tag 'friend[gifts_attributes][NEW_RECORD][link]', '', class: "form-input w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300" %>
         </div>
         <div class="flex justify-end">
-          <button class="remove-gift text-red-500 hover:text-red-600" onclick="removeGift(event)">
-            Remove this gift
-          </button>
+          <%= link_to 'Remove this gift', '#', class: 'remove-gift text-red-500 hover:text-red-600' %>
         </div>
       </div>
     </template>

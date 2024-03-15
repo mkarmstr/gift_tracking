@@ -3,8 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const giftsContainer = document.getElementById('gifts');
 
   if (addGiftLink && giftsContainer) {
-    // click event handler for "Add Gift"
-    const handleAddGiftLinkClick = (event) => {
+    addGiftLink.addEventListener('click', (event) => {
       event.preventDefault();
       const template = document.getElementById('gift-fields-template').content.cloneNode(true);
       const time = new Date().getTime();
@@ -13,22 +12,13 @@ document.addEventListener('DOMContentLoaded', () => {
       div.classList.add('nested-fields');
       div.innerHTML = tmpl;
       giftsContainer.appendChild(div);
-    }
+    });
 
-    // click event listener to "Add Gift" link
-    addGiftLink.addEventListener('click', handleAddGiftLinkClick);
-
-    // trigger click event to add new gift form on page load
-    addGiftLink.click();
-
-    // define click event handler for "Remove Gift" 
-    const handleRemoveGiftButtonClick = (event) => {
-      if (event.target.classList.contains('remove-gift-button')) {
+    giftsContainer.addEventListener('click', (event) => {
+      if (event.target.classList.contains('remove-gift')) {
+        event.preventDefault();
         event.target.closest('.nested-fields').remove();
       }
-    }
-
-    // click event listener to "Remove Gift" button
-    giftsContainer.addEventListener('click', handleRemoveGiftButtonClick);
+    });
   }
 });
