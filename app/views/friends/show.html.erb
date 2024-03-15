@@ -1,0 +1,18 @@
+<h1><%= @friend.name %></h1>
+<p>Birthday: <%= @friend.birthday %></p>
+
+<h2>Gift Ideas:</h2>
+<% @friend.gifts.each do |gift| %>
+  <p>
+    Name: <%= gift.name %><br>
+    Price: <%= number_to_currency(gift.price) %><br>
+    Link: <%= link_to 'View', gift.link unless gift.link.blank? %>
+    <%= link_to 'Remove', friend_gift_path(@friend, gift), method: :delete, data: { confirm: 'Are you sure?' } %>
+  </p>
+<% end %>
+
+<%= link_to 'Add Gift', '#', id: 'add-gift-link' %>
+<%= render 'gifts/form', friend: @friend %>
+
+<%= link_to 'Edit Friend', edit_friend_path(@friend) %>
+<%= link_to 'Back to Friends List', friends_path %>

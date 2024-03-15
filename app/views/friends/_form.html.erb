@@ -1,0 +1,35 @@
+<%= form_with(model: friend, local: true) do |form| %>
+  <% if friend.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(friend.errors.count, "error") %> prohibited this friend from being saved:</h2>
+
+      <ul>
+        <% friend.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %><br>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :birthday %><br>
+    <%= form.date_field :birthday %>
+  </div>
+
+  <h3>Gift Ideas:</h3>
+  <div id="gifts">
+    <%= form.fields_for :gifts do |gift_form| %>
+      <%= render 'gifts/gift_fields', f: gift_form %>
+    <% end %>
+  </div>
+  <%= link_to 'Add Gift', '#', id: 'add-gift-link', class: 'btn btn-default' %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
