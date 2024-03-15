@@ -67,6 +67,8 @@
       <%= text_field_tag 'friend[gifts_attributes][NEW_RECORD][link]', '', class: 'form-control' %>
     </div>
 
-    <%= link_to 'Remove this gift', '#', class: 'remove-gift' %>
+    <%= button_to 'Remove', friend_gift_path(@friend, gift),
+              method: :delete, data: { confirm: 'Are you sure?' } %>
+
   </div>
 </template>

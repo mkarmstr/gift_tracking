@@ -11,6 +11,7 @@ class GiftsController < ApplicationController
     end
   
     def destroy
+        logger.debug "Attempting to destroy gift with ID: #{params[:id]}"
         @gift = @friend.gifts.find(params[:id])
         @gift.destroy
         redirect_to @friend, notice: 'Gift was successfully removed.'
