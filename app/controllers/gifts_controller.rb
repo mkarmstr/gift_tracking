@@ -11,10 +11,11 @@ class GiftsController < ApplicationController
     end
   
     def destroy
-      @gift = @friend.gifts.find(params[:id])
-      @gift.destroy
-      redirect_to @friend, notice: 'Gift was successfully removed.'
-    end
+        @gift = @friend.gifts.find(params[:id])
+        @gift.destroy
+        redirect_to @friend, notice: 'Gift was successfully removed.'
+      end
+      
   
     private
   

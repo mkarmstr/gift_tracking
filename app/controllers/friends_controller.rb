@@ -44,7 +44,8 @@ class FriendsController < ApplicationController
     end
   
     def friend_params
-      params.require(:friend).permit(:name, :birthday)
-    end
+        params.require(:friend).permit(:name, :birthday, gifts_attributes: [:id, :name, :price, :link, :_destroy])
+      end      
+  
   end
   
