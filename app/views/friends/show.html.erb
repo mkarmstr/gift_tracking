@@ -1,17 +1,34 @@
-<h1><%= @friend.name %></h1>
-<p>Birthday: <%= @friend.birthday %></p>
-
-<h2>Gift Ideas:</h2>
-<% @friend.gifts.each do |gift| %>
-  <p>
-    Name: <%= gift.name %><br>
-    Price: <%= number_to_currency(gift.price) %><br>
-    Link: <%= link_to 'View', gift.link unless gift.link.blank? %>
-    <%= link_to 'Remove', friend_gift_path(@friend, gift), method: :delete, data: { confirm: 'Are you sure?' } %>
-  </p>
-<% end %>
-
-
-
-<%= link_to 'Edit Friend', edit_friend_path(@friend) %>
-<%= link_to 'Back to Friends List', friends_path %>
+<div class="flex flex-col rounded-2xl w-[600px] bg-[#ffffff] shadow-xl">
+  <figure class="flex justify-center items-center rounded-2xl">
+    <img src="/assets/jason-leung-Xaanw0s0pMk-unsplash.jpg" alt="Card Preview" class="rounded-t-2xl">
+  </figure>
+  <div class="flex flex-col p-6">
+    <div class="text-3xl font-bold text-primary pb-1"><%= @friend.name %></div>
+    <div class="text-xl text-primary text-opacity-70 pb-8">Birthday: <%= @friend.birthday.strftime('%m/%d/%Y') %></div>
+    <div class=" text-xl p-2 mt-4 mb-2 ">Gift Ideas:</div>
+    <div class="bg-white shadow rounded-lg p-4 mb-6">
+      <ul>
+        <% @friend.gifts.each do |gift| %>
+          <li class="list-none ">
+            Item: <%= gift.name %><br>
+            Price: <%= number_to_currency(gift.price) %><br>
+            <% unless gift.link.blank? %> Link: <%= gift.link %> <% end %>
+            <div class="flex items-center space-x-2 mt-4">
+              <% unless gift.link.blank? %>
+                <div class="bg-primary bg-opacity-10  w-30 h-10 mb-10 p-2 rounded-md hover:bg-purple-400 active:scale-95 transition-transform transform">
+                  <%= link_to 'View', "http://#{gift.link}", target: '_blank', rel: 'noopener noreferrer' %> </div>
+              <% end %>
+              <div >
+                <%= button_to 'Remove', friend_gift_path(@friend, gift), method: :delete, data: { confirm: 'Are you sure?' }, class: "bg-primary bg-opacity-10  w-30 h-10 mb-10 p-2 rounded-md hover:bg-purple-400 active:scale-95 transition-transform transform" %>
+              </div>
+            </div>
+          </ul>
+        <% end %>
+      </div>
+      <div class="flex justify-between pt-10">
+        <%= link_to 'Back to Friends List', friends_path, class: "text-cyan-600" %>
+        <%= link_to 'Edit Friend', edit_friend_path(@friend),  class: 'bg-primary text-white p-3 rounded-md hover:bg-purple-800 active:scale-95 transition-transform transform ease-in-out duration-150'  %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,74 +1,78 @@
-<%= form_with(model: friend, local: true) do |form| %>
-  <% if friend.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(friend.errors.count, "error") %> prohibited this friend from being saved:</h2>
-      <ul>
-        <% friend.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name, id: :friend_name %>
-  </div>
-
-  <div class="field">
-    <%= form.label :birthday %>
-    <%= form.date_field :birthday, id: :friend_birthday %>
-  </div>
-
-  <h3>Gift Ideas:</h3>
-  <div id="gifts">
-    <%= form.fields_for :gifts do |gift_form| %>
-      <div class="nested-fields">
-        <div class="field">
-          <%= gift_form.label :name %>
-          <%= gift_form.text_field :name %>
+<div class="flex flex-col rounded-2xl w-[600px] bg-[#ffffff] shadow-xl">
+  <figure class="flex justify-center items-center rounded-2xl">
+    <img src="/assets/jason-leung-Xaanw0s0pMk-unsplash.jpg" alt="Card Preview" class="rounded-t-2xl">
+  </figure>
+  <div class="flex flex-col rounded-2xl w-[600px] bg-white shadow-xl overflow-hidden">
+    <%= form_with(model: friend, local: true, class: "flex flex-col p-6 space-y-6") do |form| %>
+      <% if friend.errors.any? %>
+        <div id="error_explanation" class="bg-red-50 p-4 rounded border border-red-400 text-red-700">
+          <h2><%= pluralize(friend.errors.count, "error") %> prohibited this friend from being saved:</h2>
+          <ul class="list-disc pl-6">
+            <% friend.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
         </div>
-
-        <div class="field">
-          <%= gift_form.label :price %>
-          <%= gift_form.number_field :price %>
-        </div>
-
-        <div class="field">
-          <%= gift_form.label :link %>
-          <%= gift_form.text_field :link %>
-        </div>
-
-        <%= link_to 'Remove this gift', '#', class: 'remove-gift' %>
+      <% end %>
+      <div class="field">
+        <%= form.label :name, class: "block font-medium text-sm text-[#374151]" %>
+        <%= form.text_field :name, id: :friend_name, class: "form-input w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300" %>
       </div>
-    <% end %>
-  </div>
-  <%= link_to 'Add Gift', '#', id: 'add-gift-link', class: 'btn btn-primary' %>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
-
-<template id="gift-fields-template">
-  <div class="nested-fields">
-    <div class="field">
-      <%= label_tag 'friend[gifts_attributes][NEW_RECORD][name]', 'Gift name' %>
-      <%= text_field_tag 'friend[gifts_attributes][NEW_RECORD][name]', '', class: 'form-control' %>
+      <div class="field">
+        <%= form.label :birthday, class: "block font-medium text-sm text-[#374151]" %>
+        <%= form.date_field :birthday, id: :friend_birthday, class: "form-input w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300" %>
+      </div>
+      <div class="pt-8">
+        <h2 class="font-bold text-xl text-[#374151]">Gift Ideas:</h2>
+      </div>
+      <div id="gifts" class="space-y-4">
+        <%= form.fields_for :gifts do |gift_form| %>
+          <div class="nested-fields bg-gray-50 p-4 rounded-md">
+            <div class="field">
+              <%= gift_form.label :name, class: "block font-medium text-sm text-[#374151]" %>
+              <%= gift_form.text_field :name, class: "form-input w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300" %>
+            </div>
+            <div class="field">
+              <%= gift_form.label :price, class: "block font-medium text-sm text-[#374151]" %>
+              <%= gift_form.number_field :price, class: "form-input w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300" %>
+            </div>
+            <div class="field">
+              <%= gift_form.label :link, class: "block font-medium text-sm text-[#374151]" %>
+              <%= gift_form.text_field :link, class: "form-input w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300" %>
+            </div>
+            <%# <%= link_to 'Remove this gift', '#', class: 'remove-gift text-red-500 hover:text-red-600 flex justify-end' %>
+          </div>
+        <% end %>
+      </div>
+      <%= link_to 'Add Another Gift', '#', id: 'add-gift-link', class: "mt-8 flex justify-center text-primary font-bold text-green-600 hover:text-secondary" %>
+      <div class="flex justify-between pt-6">
+        <%# <div class="actions mt-6"> %>
+        <%= link_to 'Back to Friends List', friends_path%>
+        <%# </div> %>
+        <%# <div class="actions mt-6">  %>
+        <%= form.submit class: "bg-primary text-[#ffffff] p-3 rounded-md hover:bg-purple-800 active:scale-95 transition-transform transform" %>
+        <%# </div> %>
+      <% end %>
     </div>
-
-    <div class="field">
-      <%= label_tag 'friend[gifts_attributes][NEW_RECORD][price]', 'Price' %>
-      <%= text_field_tag 'friend[gifts_attributes][NEW_RECORD][price]', '', class: 'form-control' %>
-    </div>
-
-    <div class="field">
-      <%= label_tag 'friend[gifts_attributes][NEW_RECORD][link]', 'Link' %>
-      <%= text_field_tag 'friend[gifts_attributes][NEW_RECORD][link]', '', class: 'form-control' %>
-    </div>
-
-    <%= button_to 'Remove', friend_gift_path(@friend, gift),
-              method: :delete, data: { confirm: 'Are you sure?' } %>
-
+    <template id="gift-fields-template">
+      <div class="nested-fields p-4 rounded-md bg-gray-100 space-y-4">
+        <div class="field">
+          <%= label_tag 'friend[gifts_attributes][NEW_RECORD][name]', 'Item name', class: "block font-medium text-sm text-[#374151] pt-2" %>
+          <%= text_field_tag 'friend[gifts_attributes][NEW_RECORD][name]', '', class: "form-input w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300" %>
+        </div>
+        <div class="field">
+          <%= label_tag 'friend[gifts_attributes][NEW_RECORD][price]', 'Price', class: "block font-medium text-sm text-[#374151] pt-8" %>
+          <%= text_field_tag 'friend[gifts_attributes][NEW_RECORD][price]', '', class: "form-input w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300" %>
+        </div>
+        <div class="field">
+          <%= label_tag 'friend[gifts_attributes][NEW_RECORD][link]', 'Link', class: "block font-medium text-sm text-[#374151] pt-8" %>
+          <%= text_field_tag 'friend[gifts_attributes][NEW_RECORD][link]', '', class: "form-input w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300" %>
+        </div>
+        <div class="flex justify-end">
+          <button class="remove-gift text-red-500 hover:text-red-600" onclick="removeGift(event)">
+            Remove this gift
+          </button>
+        </div>
+      </div>
+    </template>
   </div>
-</template>
